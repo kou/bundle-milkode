@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
     "Add gems installed by Bundler to Milkode index autamatically"
   spec.homepage = "https://github.com/kou/bundle-milkode"
 
-  spec.files = ["README.md", "COPYING", "#{spec.name}.gemspec"]
+  spec.files = ["README.md", "COPYING", "Gemfile", "#{spec.name}.gemspec"]
   Dir.chdir("bin") do
     spec.executables = Dir.glob("*")
   end
