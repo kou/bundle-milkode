@@ -17,7 +17,7 @@
 
 Gem::Specification.new do |spec|
   spec.name = "bundle-milkode"
-  spec.version = "1.0.0"
+  spec.version = "1.0.1"
   spec.authors = ["Kouhei Sutou"]
   spec.email = ["kou@cozmixng.org"]
   spec.summary = "Make all gems installed by Bundler milkable"
