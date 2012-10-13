@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+#
+# Copyright (C) 2012  Kouhei Sutou <kou@cozmixng.org>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+require "rubygems"
+
+milk_command_line = [
+  Gem.ruby,
+  Gem.bin_path("milkode", "milk"),
+]
+milkode_directory = File.expand_path("~/.milkode")
+unless File.exist?(milkode_directory)
+  system(*(milk_command_line + ["init", "--default"]))
+end
+
+gem_dir = Gem.dir
+targets = []
+Gem.post_install do |installer|
+  if Bundler.requires_sudo? and installer.gem_home == Bundler.tmp.to_s
+    targets << "#{gem_dir}/gems/#{installer.spec.full_name}"
+  else
+    targets << installer.gem_dir
+  end
+end
+
+load(Gem.bin_path("bundler", "bundle"))
+
+ENV["GEM_PATH"] = nil
+ENV["GEM_HOME"] = nil
+targets.each do |target|
+  system(*(milk_command_line + ["add", target]))
+end
