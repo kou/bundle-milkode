@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+gem_path = ENV["GEM_PATH"]
+gem_home = ENV["GEM_HOME"]
+
 require "rubygems"
 
 milk_command_line = [
@@ -38,8 +41,8 @@ end
 
 load(Gem.bin_path("bundler", "bundle"))
 
-ENV["GEM_PATH"] = nil
-ENV["GEM_HOME"] = nil
+ENV["GEM_PATH"] = gem_path
+ENV["GEM_HOME"] = gem_home
 targets.each do |target|
   system(*(milk_command_line + ["add", target]))
 end
