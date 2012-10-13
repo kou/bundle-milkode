@@ -18,7 +18,7 @@
 require "bundler/gem_helper"
 
 helper = Bundler::GemHelper.new
-def helper.tag
+def helper.version_tag
   version
 end
 helper.install
